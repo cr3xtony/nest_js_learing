@@ -53,7 +53,7 @@ export class AuthService {
     email: string,
   ): Promise<{ access_token: string }> {
     const payload = {
-      sub: userId,
+      id: userId,
       email,
     };
     const token = await this.jwt.signAsync(payload, {
