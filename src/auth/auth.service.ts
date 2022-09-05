@@ -21,8 +21,8 @@ export class AuthService {
     if (!user) {
       throw new ForbiddenException('User not found');
     }
-    const pwMatches = await argon2.verify(user.hash, dto.password);
-    if (!pwMatches) {
+    const isPasswordMatch = await argon2.verify(user.hash, dto.password);
+    if (!isPasswordMatch) {
       throw new ForbiddenException('Invalid credentials');
     }
 
