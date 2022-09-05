@@ -110,11 +110,4 @@ describe('App e2e', () => {
     });
     describe('Edit user', () => {});
   });
-  describe('Bookmarks', () => {
-    describe('Get bookmarks', () => {});
-    describe('Create bookmark', () => {});
-    describe('Get bookmark by id', () => {});
-    describe('Edit bookmark', () => {});
-    describe('Delete bookmark', () => {});
-  });
 });

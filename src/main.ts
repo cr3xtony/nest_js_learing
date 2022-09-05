@@ -12,16 +12,13 @@ async function bootstrap() {
     }),
   );
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Nest Js Boilerplate')
+    .setDescription('Nest js boilerplate with user authentication')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('boilerplate')
     .build();
-  const options: SwaggerDocumentOptions = {
-    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
-  };
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document, options);
+  SwaggerModule.setup('api', app, document);
   app.use(helmet());
   await app.listen(3000);
 }
