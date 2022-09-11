@@ -14,7 +14,8 @@ model User{
   id          Int @id @default(autoincrement())
   email       String @unique
   hash        String
-  firstName   String?
+  hashedRT    String?
+  firstName   String
   lastName    String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
