@@ -8,7 +8,6 @@ export class UserController {
   @UseGuards(JwtGuard)
   @Get('me')
   getMe(@getUser() user: User) {
-    console.log(user);
     return 'user info';
   }
 }

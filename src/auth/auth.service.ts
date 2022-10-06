@@ -6,7 +6,6 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { User } from '@prisma/client';
-
 @Injectable({})
 export class AuthService {
   constructor(
@@ -104,6 +103,38 @@ export class AuthService {
           hashedRT: null,
         },
       });
+      return { message: 'Logged out successfully' };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async refreshTokens(user: User) {
+    try {
+      const _user = await this.prisma.user.findUnique({
+        where: {
+          id: user.id,
+        },
+      });
+
+      if (!_user) throw new ForbiddenException('User not found');
+      const rtMatches = await argon2.verify(user.hashedRT, _user.hashedRT);
+      if (!rtMatches) throw new ForbiddenException('Access denied');
+      const payload = {
+        id: user.id,
+        email: user.email,
+      };
+      const token = await this.getTokens(payload);
+      const hashedRT = await argon2.hash(token.refreshToken);
+      await this.prisma.user.update({
+        where: {
+          id: _user.id,
+        },
+        data: {
+          hashedRT: hashedRT,
+        },
+      });
+      return token;
     } catch (error) {
       throw error;
     }

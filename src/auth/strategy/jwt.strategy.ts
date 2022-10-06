@@ -9,7 +9,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(config: ConfigService, private prisma: PrismaService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: config.get('JWT_REFRESH_TOKEN_SECRET'),
+      secretOrKey: config.get('JWT_ACCESS_TOKEN_SECRET'),
     });
   }
 
@@ -20,7 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       },
     });
     delete user.hash;
-    console.log({ user });
     return user;
   }
 }
