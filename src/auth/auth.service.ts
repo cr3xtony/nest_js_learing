@@ -118,7 +118,7 @@ export class AuthService {
       });
 
       if (!_user) throw new ForbiddenException('User not found');
-      const rtMatches = await argon2.verify(user.hashedRT, _user.hashedRT);
+      const rtMatches = await argon2.verify(_user.hashedRT, user.hashedRT);
       if (!rtMatches) throw new ForbiddenException('Access denied');
       const payload = {
         id: user.id,

@@ -9,7 +9,7 @@ import { Request } from 'express';
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(
   Strategy,
-  'access-token',
+  'jwt-refresh',
 ) {
   constructor(
     private readonly authService: AuthService,
@@ -19,14 +19,15 @@ export class RefreshTokenStrategy extends PassportStrategy(
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: configService.get('JWT_REFRESH_TOKEN_SECRET'),
+      passReqToCallback: true,
     });
   }
 
   async validate(req: Request, payload: any) {
-    const refreshToken = req.get('authorization').replace('Bearer ', '').trim();
+    const hashedRT = req?.get('authorization')?.replace('Bearer ', '')?.trim();
     return {
       ...payload,
-      refreshToken,
+      hashedRT,
     };
   }
 }

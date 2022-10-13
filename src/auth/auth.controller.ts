@@ -42,7 +42,7 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard('jwt-refresh'))
-  @Post('refresh-token')
+  @Post('refresh')
   refreshToken(@getUser() user: User) {
     return this.authService.refreshTokens(user);
   }
