@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=123
       - POSTGRES_DB=nest
     networks:
-      - freecodecamp
+      - nestjs
 
   test-db:
     image: postgres
@@ -20,6 +20,6 @@ services:
       - POSTGRES_PASSWORD=123
       - POSTGRES_DB=nest
     networks:
-      - freecodecamp
+      - nestjs
 networks:
-  freecodecamp:
+  nestjs:
